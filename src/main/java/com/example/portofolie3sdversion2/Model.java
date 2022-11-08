@@ -17,17 +17,15 @@ class Model{
         return db.query("select fld2 from lst1 order by fld1;","fld2");
     }
 
-    void readHarbourNames () {
-        db.cmd("select name from habour");
 
-
-    }
-
-
-
+    //Extract a list of ports for combo boxes query
    ArrayList<String>  readListOfHabourNames() {
        return db.query("select name from habour;", "name");
     }
+
+    //Search for vessels with available capacity query
+
+
 
 
 }
