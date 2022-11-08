@@ -25,6 +25,10 @@ class Model{
 
     //Search for vessels with available capacity query
 
+    void readSearchVessel(){
+        return db.query(); //Sæt query ind her
+    }
+
 
 
 
