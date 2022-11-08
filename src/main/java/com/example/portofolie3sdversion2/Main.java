@@ -26,32 +26,48 @@ public class Main extends Application {
     public void start(Stage stage) {
         ArrayList<String> liste = new ArrayList<>(model.readListOfHabourNames());
 
-        //From Port combobox
-        Label lab1 = new Label("From Port");
+        //Fra havn combobox
+        Label lab1 = new Label("Fra Havn");
         ComboBox<String> comboFromPort = new ComboBox<>();
         for(String fromHarbour: liste){
             comboFromPort.getItems().add(fromHarbour);
         }
 
-        //From port combobox
-        Label lab2 = new Label("To Port");
+        //Til havn combobox
+        Label lab2 = new Label("Til Havn");
         ComboBox<String> comboToPort = new ComboBox<>();
         for(String toHarbour: liste){
             comboToPort.getItems().add(toHarbour);
         }
-
+        String toPortValue = comboToPort.getValue();
+        comboToPort.getValue();
 
         //Number of containers
-        Label lab3 = new Label("Number of containers");
+        Label lab3 = new Label("Antal af containers");
         TextField fld = new TextField();
+
+
         Button srch = new Button("Search");
         TextArea res = new TextArea();
+
+        //eventlistener -> sæt værdierne
+        //select statement
+        // er der skib der kan bruges
+        // text area
+        //  update db indsæt flow af rigtig art
 
         srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
                 + comboFromPort.getValue()
                 +"\n" +comboToPort.getValue()
                 +"\n" + fld.getText()
         )); //Tager event state fra button og skriver "Press" i textArea
+
+        srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
+                + comboFromPort.getValue()
+                +"\n" +comboToPort.getValue()
+                +"\n" + fld.getText()
+        ));
+
 
         GridPane pane1 = new GridPane();
         BorderPane root = new BorderPane();
