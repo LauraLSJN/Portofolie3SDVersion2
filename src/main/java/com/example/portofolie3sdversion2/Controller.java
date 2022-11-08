@@ -18,4 +18,6 @@ class Controller{
         for(String t:model.get())toarea+=t+"\n";
         view.setArea(toarea);
     }
+
+
 }
