@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.example.portofolie3sdversion2/com.example.portofolie3sdversion2.HelloApplication
+                                com.example.portofolie3sdversion2/com.example.portofolie3sdversion2.Main
                             </mainClass>
                         </configuration>
                     </execution>
