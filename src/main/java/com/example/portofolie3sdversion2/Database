@@ -139,3 +139,23 @@ from flow f
 --where (f.containers <= v.capacity)
 ADD constraints flow check (f.container)
 ;*/
+
+select v.name as Vesselnavn, f.fid as FlowID, h.name
+ from transport t
+inner join vessel v on v.vid = t.vessel
+inner join flow f on t.tid = f.transport
+inner join habour h on t.fromhabour = h.hid
+where h.name;
+
+-- Søge funktion
+select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) as diff
+       from transport t
+inner join flow f on f.fid = t.tid --Laver denne join, da det er den finder fid med tid. Disse er basically ens
+inner join vessel v on t.vessel = v.vid
+inner join habour h on h.hid = t.fromhabour
+inner join habour h2 on h2.hid = t.tohabour
+
+where h.name LIKE 'Jawaharlal Nehru' AND h2.name LIKE 'Mombasa' and diff = 6000; --Når værdien fra hvad man selv indtaster, skal det være diff er mindre end brugerinout
+--where difference(f.containers,v.capacity) = 6000;
+
+--where diff = 6000;
