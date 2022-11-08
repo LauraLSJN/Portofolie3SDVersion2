@@ -10,6 +10,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Main extends Application {
     private Model model=new Model();
@@ -22,22 +24,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        ArrayList<String> liste = new ArrayList<>(model.readListOfHabourNames());
 
         //From Port combobox
         Label lab1 = new Label("From Port");
         ComboBox<String> comboFromPort = new ComboBox<>();
-        comboFromPort.getItems().add("Esbjerg");
-        comboFromPort.getItems().add("København");
-        comboFromPort.getItems().add("Espergærde");
-        comboFromPort.getItems().add("Valby");
+        for(String fromHarbour: liste){
+            comboFromPort.getItems().add(fromHarbour);
+        }
 
         //From port combobox
         Label lab2 = new Label("To Port");
         ComboBox<String> comboToPort = new ComboBox<>();
-        comboToPort.getItems().add("Humlebæk");
-        comboToPort.getItems().add("Snekkersten");
-        comboToPort.getItems().add("Vanløse");
-        comboToPort.getItems().add("Nørrebro");
+        for(String toHarbour: liste){
+            comboToPort.getItems().add(toHarbour);
+        }
+
 
         //Number of containers
         Label lab3 = new Label("Number of containers");

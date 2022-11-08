@@ -15,4 +15,18 @@ class Model{
     ArrayList<String> get(){
         return db.query("select fld2 from lst1 order by fld1;","fld2");
     }
+
+    void readHarbourNames () {
+        db.cmd("select name from habour");
+
+
+    }
+
+
+
+   ArrayList<String>  readListOfHabourNames() {
+       return db.query("select name from habour;", "name");
+    }
+
+
 }
