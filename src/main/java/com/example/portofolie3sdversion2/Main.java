@@ -50,7 +50,7 @@ public class Main extends Application {
 
         Button srch = new Button("Search");
         TextArea res = new TextArea();
-        TextArea res1 = new TextArea();
+        //TextArea res1 = new TextArea();
 
         //eventlistener -> sæt værdierne
         //select statement
@@ -59,27 +59,27 @@ public class Main extends Application {
         //  update db indsæt flow af rigtig art
         //ArrayList<String> testListe = new ArrayList<>(model.readSearchVessel(comboFromPort.getValue(),comboFromPort.getValue()));
         //String string = testListe.toString();
-
-        /*srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
-                + comboFromPort.getValue()
+        //e er en nameless funktion, som Java har (Lambda notation)
+        srch.setOnAction(e -> res.setText(
+                comboFromPort.getValue()
                 +"\n" +comboToPort.getValue()
-                +"\n" + fld.getText()
-                +"\n" + testListe
                 ));
                 //Tager event state fra button og skriver "Press" i textArea
-         */
 
-        srch.setOnAction(e -> controller.search(//"Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
-                 comboFromPort.getValue(),
-                //+"\n" +
-                        comboToPort.getValue(),
-                //+"\n" +
-                                fld.getText()
-                //+"\n" + testListe
-        ));
-        /*srch.setOnAction(e -> res1.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
-                + string
-        ));*/
+
+        //e er en nameless funktion, som Java har (Lambda notation)
+        srch.setOnAction(e -> controller.search(comboFromPort.getValue(), comboToPort.getValue(), antalContainers.getText()));
+
+     //  srch.setOnAction(e -> res.setText(comboFromPort.getValue() +  comboToPort.getValue()+  antalContainers.getText()));
+
+       //_srch.setOnAction(e -> res.setText(controller()));
+
+       // srch.setOnAction(e -> res.setText(controller.search(comboFromPort.getValue())));
+
+
+
+        ///srch.setOnAction(e -> res1.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
+       // ));
 
 
         /*srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
@@ -109,7 +109,7 @@ public class Main extends Application {
         pane1.add(lab2,2,1);
         pane1.add(comboToPort,2,2);
         pane1.add(lab3,3,1);
-        pane1.add(fld,3,2);
+        pane1.add(antalContainers,3,2);
 
 
 

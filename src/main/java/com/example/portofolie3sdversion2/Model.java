@@ -38,27 +38,58 @@ class Model{
     }*/
 
     //Search for vessels with available capacity query
-    void CMDreadSearchVesselsWithAvailableCapacity(String comboToPort, String comboFromPort) {
+    /*void CMDreadSearchVesselsWithAvailableCapacity(String comboToPort, String comboFromPort) {
         db.cmd("select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers )as diff "
                 + "from transport t"
                 + " inner join flow f on f.fid = t.tid "
                 + "   inner join habour h on h.hid = t.fromhabour"
                 + "    inner join habour h2 on h2.hid = t.tohabour"
                 + "  where h.name LIKE " + comboFromPort + " AND h2.name LIKE " + comboToPort +";");
-    }
+    }*/
 
 
-    ArrayList<String> readSearchVessel1(String comboFromPort, String comboToPort, int antalContainers){
+  /*  ArrayList<String> readSearchVessel1(String comboFromPort, String comboToPort, String antalContainers){
+        System.out.println(comboFromPort + " " + comboToPort + " " + antalContainers);
+        return db.query("SELECT t.tid as TransportID,"
+                + " FROM transport t "
+                + "INNER JOIN"
+
+        );
+    }*/
+
+    ArrayList<String> readSearchVessel(String comboFromPort, String comboToPort, String antalContainers){
+        System.out.println(comboFromPort + " " + comboToPort + " " + antalContainers);
+
         return db.query(
-                "select t.tid as TransportID, v.vid, v.name, v.capacity, f.fid (c.capacity-f.containers) as diff " +
-                        "from transport t" +
-                        "inner join flow f on f.fid = t.tid " +
-                        "inner join vessel v on t.vessel = v.vid" +
-                        "inner join habour fromHarbour on h.hid = t.fromhabour " +
-                        "inner join habour toHarbour on toHarbour.hid = t.tohabour " +
-                        "where fromHarbour.name LIKE" + comboFromPort + "AND toHarbour.name LIKE " + comboToPort + ";"
-                ,"transportID"); //Sæt query ind her
+                "select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport, v.name as vessel, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
+                + " from transport t "
+                + " inner join vessel v on t.vessel = v.vid "
+                + " inner join habour fromHabour on t.fromhabour = fromHabour.hid "
+                + " inner join habour toHabour on t.tohabour = toHabour.hid "
+                + " left outer join flow f on t.tid = f.transport "
+                + " where fromport = '" + comboFromPort +"' and toport = '" + comboToPort + "' "
+                + "group by t.tid "
+                + " having antalContainer + "+antalContainers+" < v.capacity ", "TransportID"
+
+        );
+
+
+       /*return db.query(
+                "SELECT t.tid AS TransportID, v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) AS diff " +
+                        "FROM transport t " +
+                        "INNER JOIN flow f ON f.fid = t.tid " +
+                        "INNER JOIN vessel v ON t.vessel = v.vid " +
+                        "INNER JOIN habour fromHarbour ON h.hid = t.fromhabour " +
+                        "INNER JOINN habour toHarbour ON toHarbour.hid = t.tohabour " +
+                        "WHERE fromHarbour.name LIKE '" + comboFromPort + "' AND toHarbour.name LIKE '" + comboToPort + "' AND '" + antalContainers + " < diff;"
+                ,"TransportID"
+       );*/
+
+
+
     }
+
+
 
     //Lav metode til nøjagtig samme erklæring som search -> Returnere tekstString istedet for void
 
@@ -72,9 +103,9 @@ class Model{
                 "inner join vessel v on t.vessel = v.vid" +
                 "inner join habour fromHarbour on h.hid = t.fromhabour " +
                 "inner join habour toHarbour on toHarbour.hid = t.tohabour " +
-                "where fromHarbour.name LIKE" + comboFromPort + "AND toHarbour.name LIKE " + comboToPort + ";"
+                "where fromHarbour.name LIKE" + comboFromPort + "AND toHarbour.name LIKE " + comboToPort + "and" + antalContainers + "> diff;"
                 ,""); //Sæt query ind her
-    }
+    }*/
 
     /*select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) as diff
     from transport t
