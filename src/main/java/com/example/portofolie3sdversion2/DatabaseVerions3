@@ -1,0 +1,201 @@
+drop table if exists flow;
+drop table if exists transport;
+drop table if exists vessel;
+drop table if exists habour;
+pragma foreign_keys = ON;
+
+create table habour(hid Integer primary key, name Text);
+insert into habour values(1,'Jawaharlal Nehru');
+insert into habour values(2,'Tanjung Pelepas');
+insert into habour values(3,'Dar Es Salaam');
+insert into habour values(4,'Mombasa');
+insert into habour values(5,'Zanzibar');
+insert into habour values(6,'Jebel Ali Dubai');
+insert into habour values(7,'Salalah');
+
+create table vessel(vid Integer primary key, name Text, capacity integer not null );
+insert into vessel values(1,'Maren',12000);
+insert into vessel values(2,'Misse',5000);
+insert into vessel values(3,'Mette',8000);
+insert into vessel values(4,'Musse',10000);
+insert into vessel values(5,'Mugge',8000);
+insert into vessel values(6,'Marle',10000);
+insert into vessel values(7,'Minne',10000);
+insert into vessel values(8,'Maryk',10000);
+insert into vessel values(9,'Melle',10000);
+insert into vessel values(10,'Manna',10000);
+insert into vessel values(11,'Mynte',10000);
+insert into vessel values(12,'Munja',10000);
+
+create table transport(tid Integer primary key,
+                       vessel Integer  references vessel(vid),
+                       fromhabour Integer  references habour(hid),
+                       tohabour Integer  references habour(hid)
+);
+insert into transport values (1,1,1,4);
+insert into transport values (2,2,1,3);
+insert into transport values (3,3,2,4);
+insert into transport values (4,3,2,4);
+insert into transport values (5,4,2,3);
+insert into transport values (6,5,2,5);
+insert into transport values (7,6,2,6);
+insert into transport values (8,7,2,7);
+insert into transport values (9,8,3,2);
+insert into transport values (10,9,3,1);
+insert into transport values (11,10,3,6);
+insert into transport values (12,11,4,7);
+insert into transport values (13,12,4,6);
+insert into transport values (14,12,3,6);
+
+create table flow(fid Integer primary key,
+                  transport Integer references transport(tid),
+                  containers integer not null
+);
+insert into flow values (1,1,6000);
+insert into flow values (2,2,9000);
+insert into flow values (3,3,5000);
+insert into flow values (4,3,5000);
+insert into flow values (5,4,3000);
+insert into flow values (6,5,2000);
+insert into flow values (7,6,7000);
+insert into flow values (8,7,7000);
+insert into flow values (9,8,5000);
+insert into flow values (10,9,3000);
+insert into flow values (11,10,2000);
+insert into flow values (12,11,2000);
+--insert into flow values (13,12,500);
+--insert into flow values (14,12,400);
+
+
+
+/*select h1.name as fromport, h2.name as toport, v.name as vessel,
+       Sum(f.containers) as flow, v.capacity
+from transport t
+         inner join vessel v on t.vessel = v.vid
+         inner join habour h1 on t.fromhabour = h1.hid
+         inner join habour h2 on t.tohabour = h2.hid
+         left outer join flow f on t.tid = f.transport
+group by t.tid
+;*/
+
+select v.vid as VesselID, v.name as VesselName ,v.capacity as VesselCapacity,
+       f.containers as flowContainers, t.tid as TransportID
+from transport t
+         inner join vessel v on t.vessel = v.vid
+    --inner join habour h1 on t.fromhabour = h1.id
+    -- inner join habour h2 on t.tohabour = h2.id
+         left outer join flow f on t.tid = f.transport
+--group by t.id;
+group by v.vid;
+
+
+
+-- Tjekker om containers er mindre end capacity VIRKER!!
+select f.fid, f.containers,v.capacity
+from flow f
+         inner join vessel v on f.fid = v.vid
+where (f.containers <= v.capacity);
+
+
+
+-- Liste ove containers som har flere containers end capacity (KIGGER KUN I FLOW DATABASE)
+select f.fid as FlowID, f.containers as FlowContainers, v.capacity as VesselCapacity
+from flow f
+         inner join vessel v on f.fid = v.vid
+where (f.containers>=v.capacity);
+
+--Liste med transport, hvor der er flere containers
+select f.fid as FlowID, Sum(f.containers) as FlowContainers, v.capacity as VesselCapacity
+from transport t
+         inner join vessel v on t.tid = v.vid
+         inner join habour fromhabour on t.fromhabour = fromhabour.hid
+         inner join habour tohabour on t.tohabour = tohabour.hid
+         left outer join flow f on t.tid = f.transport
+group by t.tid
+having (FlowContainers>=v.capacity);
+
+
+--Alternativ tabel over containers med flere containers en capacity tager fra TRANSPORT (SSammensmeltning af ovenstående og nedesntpende)
+select fromHabour.name as fromHabour, toHabour.name as toHabour, v.name as vessel,
+       Sum(f.containers) as flowContainers, v.capacity
+from transport t
+         inner join vessel v on t.vessel = v.vid
+         inner join habour fromHabour on t.fromhabour = fromHabour.hid
+         inner join habour toHabour on t.tohabour = toHabour.hid
+         left outer join flow f on t.tid = f.transport
+group by t.tid
+having flowContainers > v.capacity
+;
+
+
+
+-- TABEL: Verify at der kun er en kørsel om dagen
+--select vessel.name, count(t.tid) as numboats
+select vessel.name, count(tid) as numboats
+/*from vessel left outer join transport -- FOr alle owners find informationer i boat
+                           on vessel.vid = transport.vessel*/
+--from vessel inner join transport t on vessel.vid = t.vessel
+from vessel left outer join transport t on vessel.vid = t.vessel
+
+group by vessel.vid
+having numboats > 1;
+
+select vessel.name, count(tid)
+from vessel left outer join transport t on vessel.vid = t.vessel;
+
+
+
+--TABEL: hvor capacitet er mindre end containers
+select v.vid as VesselID, v.name, v.capacity as VesselCapacity, f.containers as FlowContainer, f.transport as FlowTransport
+
+from vessel v
+         inner join transport t on v.vid = t.vessel
+         inner join flow f on t.tid = f.transport
+
+group by v.vid
+having count(f.containers) <= v.capacity;
+
+/*alter table flow
+select f.fid, f.containers,v.capacity
+from flow f
+         inner join vessel v on f.fid = v.vid
+--where (f.containers <= v.capacity)
+ADD constraints flow check (f.container)
+;*/
+
+select v.name as Vesselnavn, f.fid as FlowID, h.name
+from transport t
+         inner join vessel v on v.vid = t.vessel
+         inner join flow f on t.tid = f.transport
+         inner join habour h on t.fromhabour = h.hid
+where h.name;flow
+
+-- Søge funktion
+select t.tid as TrandsportID, t.fromhabour as FromHabour,
+       v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) as diff, Sum(f.containers) as antalContauner
+from transport t
+         inner join flow f on f.fid = t.tid --Laver denne join, da det er den finder fid med tid. Disse er basically ens
+         inner join vessel v on t.vessel = v.vid
+         inner join habour fromHabour on fromHabour.hid = t.fromhabour
+         inner join habour toHabour on toHabour.hid = t.tohabour
+
+--where h.name LIKE 'Jawaharlal Nehru' AND h2.name LIKE 'Mombasa' and diff > 100
+group by t.tid; --Når værdien fra hvad man selv indtaster, skal det være diff er mindre end brugerinout
+--where difference(f.containers,v.capacity) = 6000;
+
+--where diff = 6000;
+
+
+select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport, v.name as vessel,
+       Sum(f.containers) as antalContainer, v.capacity as containerCapacity
+from transport t
+         inner join vessel v on t.vessel = v.vid
+         inner join habour fromHabour on t.fromhabour = fromHabour.hid
+         inner join habour toHabour on t.tohabour = toHabour.hid
+         left outer join flow f on t.tid = f.transport
+
+where fromport = 'Jawaharlal Nehru' and toport = 'Mombasa'
+group by t.tid
+        -- having antalContainer < v.capacity
+having antalContainer + 5000 < v.capacity
+;
