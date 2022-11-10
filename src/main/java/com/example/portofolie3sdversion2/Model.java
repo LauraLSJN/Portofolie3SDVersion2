@@ -61,7 +61,7 @@ class Model{
         System.out.println(comboFromPort + " " + comboToPort + " " + antalContainers);
 
         return db.query(
-                "select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport, v.name as vessel, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
+                "select t.tid as TransportID, from Habour.name as fromport, toHabour.name as toport, v.name as vessel, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
                 + " from transport t "
                 + " inner join vessel v on t.vessel = v.vid "
                 + " inner join habour fromHabour on t.fromhabour = fromHabour.hid "
