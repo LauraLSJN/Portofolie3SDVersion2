@@ -27,11 +27,11 @@ class Controller{
 
     void search(String comboFromPort, String comboToPort, String antalContainer){
 
-
-
         //view.setArea("det virker fra controller");
         //ArrayList<String> res = new ArrayList<>(model.readSearchVessel(comboFromPort, comboToPort, antalContainer));
         System.out.println(model.readSearchVessel(comboFromPort, comboToPort, antalContainer));
+
+
 
 
 

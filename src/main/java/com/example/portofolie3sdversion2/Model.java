@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 class Model{
     MyDB db=new MyDB();
+    private MyDB db1;
+
     //Controller controller = new Controller();
     Model(){
         //db.cmd("drop table if exists lst1;");
@@ -72,6 +74,7 @@ class Model{
                 + " having antalContainer + "+antalContainers+" < v.capacity ", "TransportID"
 
         );
+
 
 
        /*return db.query(
