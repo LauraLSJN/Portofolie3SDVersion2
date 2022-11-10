@@ -105,6 +105,19 @@ from flow f
 where (f.containers>=v.capacity);
 
 
+--Alternativ over containers med flere containers en capacity
+select h1.name as fromport, h2.name as toport, v.name as vessel,
+       Sum(f.containers) as flow, v.capacity
+from transport t
+         inner join vessel v on t.vessel = v.vid
+         inner join habour h1 on t.fromhabour = h1.hid
+         inner join habour h2 on t.tohabour = h2.hid
+         left outer join flow f on t.tid = f.transport
+group by t.tid
+having flow > v.capacity
+;
+
+
 
 -- Verify at der kun er en kørsel om dagen
 --select vessel.name, count(t.tid) as numboats
