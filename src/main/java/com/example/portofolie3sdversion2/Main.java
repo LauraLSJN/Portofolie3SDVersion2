@@ -82,9 +82,8 @@ public class Main extends Application {
        // ));
 
 
-        /*srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
-                + comboFromPort
-        ));*/
+        //srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)+ comboFromPort
+        //));
 
 
 
@@ -135,4 +134,5 @@ public class Main extends Application {
         launch();
     }
 }
+
 
