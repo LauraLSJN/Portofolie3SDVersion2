@@ -27,6 +27,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         ArrayList<String> liste = new ArrayList<>(model.readListOfHabourNames());
 
+
         //Fra havn combobox
         Label lab1 = new Label("Fra Havn");
         ComboBox<String> comboFromPort = new ComboBox<>();
@@ -60,10 +61,10 @@ public class Main extends Application {
         //ArrayList<String> testListe = new ArrayList<>(model.readSearchVessel(comboFromPort.getValue(),comboFromPort.getValue()));
         //String string = testListe.toString();
         //e er en nameless funktion, som Java har (Lambda notation)
-        srch.setOnAction(e -> res.setText(
+        /*srch.setOnAction(e -> res.setText(
                 comboFromPort.getValue()
                 +"\n" +comboToPort.getValue()
-                ));
+                ));*/
                 //Tager event state fra button og skriver "Press" i textArea
 
 
