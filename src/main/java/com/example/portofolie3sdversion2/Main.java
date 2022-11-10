@@ -16,7 +16,7 @@ import java.util.Iterator;
 
 public class Main extends Application {
     private Model model=new Model();
-    private Controller con=new Controller(model,this);
+    private Controller controller =new Controller(model,this);
     private TextField field=new TextField();
     private TextArea area=new TextArea();
     void setArea(String s){area.setText(s);}

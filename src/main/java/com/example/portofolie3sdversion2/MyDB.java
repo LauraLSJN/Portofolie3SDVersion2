@@ -26,7 +26,7 @@ class MyDB{
         }
         conn=null;
     }
-    public void cmd(String sql){
+    public void cmd(String sql){ //cmd anvendes til insert
         if(conn==null)open();
         if(conn==null){System.out.println("No connection");return;}
         Statement stmt=null;
@@ -42,7 +42,7 @@ class MyDB{
             System.out.println("Error in statement "+sql);
         }
     }
-    public ArrayList<String> query(String query, String fld){
+    public ArrayList<String> query(String query, String fld){ //query anvendes til select
         ArrayList<String> res=new ArrayList<>();
         if(conn==null)open();
         if(conn==null){System.out.println("No connection");return res;}
