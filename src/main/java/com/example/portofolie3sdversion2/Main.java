@@ -45,7 +45,7 @@ public class Main extends Application {
 
         //Number of containers
         Label lab3 = new Label("Antal af containers");
-        TextField fld = new TextField();
+        TextField antalContainers = new TextField();
 
 
         Button srch = new Button("Search");

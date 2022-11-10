@@ -94,8 +94,8 @@ class Model{
     //Lav metode til nøjagtig samme erklæring som search -> Returnere tekstString istedet for void
 
 
-
-        ArrayList<String> readSearchVessel(String comboFromPort, String comboToPort){
+        //Search for vessels with available capacity query
+        /*ArrayList<String> readSearchVessel1(String comboFromPort, String comboToPort, String antalContainers){
         return db.query(
                 "select v.vid, v.name, v.capacity, f.fid (c.capacity-f.containers) as diff " +
                 "from transport t" +
