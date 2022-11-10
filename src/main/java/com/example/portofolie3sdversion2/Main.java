@@ -94,7 +94,6 @@ public class Main extends Application {
 
 
 
-
         GridPane pane1 = new GridPane();
         BorderPane root = new BorderPane();
         lab1.setPrefSize(150,30);
