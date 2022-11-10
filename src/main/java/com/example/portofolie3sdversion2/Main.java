@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -49,24 +50,49 @@ public class Main extends Application {
 
         Button srch = new Button("Search");
         TextArea res = new TextArea();
+        TextArea res1 = new TextArea();
 
         //eventlistener -> sæt værdierne
         //select statement
         // er der skib der kan bruges
         // text area
         //  update db indsæt flow af rigtig art
+        //ArrayList<String> testListe = new ArrayList<>(model.readSearchVessel(comboFromPort.getValue(),comboFromPort.getValue()));
+        //String string = testListe.toString();
 
-        srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
+        /*srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
                 + comboFromPort.getValue()
                 +"\n" +comboToPort.getValue()
                 +"\n" + fld.getText()
-        )); //Tager event state fra button og skriver "Press" i textArea
+                +"\n" + testListe
+                ));
+                //Tager event state fra button og skriver "Press" i textArea
+         */
 
-        srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
-                + comboFromPort.getValue()
-                +"\n" +comboToPort.getValue()
-                +"\n" + fld.getText()
+        srch.setOnAction(e -> controller.search(//"Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
+                 comboFromPort.getValue(),
+                //+"\n" +
+                        comboToPort.getValue(),
+                //+"\n" +
+                                fld.getText()
+                //+"\n" + testListe
         ));
+        /*srch.setOnAction(e -> res1.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
+                + string
+        ));*/
+
+
+        /*srch.setOnAction(e -> res.setText("Pressed\n" //e er en nameless funktion, som Java har (Lambda notation)
+                + comboFromPort
+        ));*/
+
+
+
+        //model.CMDreadSearchVesselsWithAvailableCapacity(comboFromPort.getValue(), comboFromPort.getValue());
+
+
+
+
 
 
         GridPane pane1 = new GridPane();

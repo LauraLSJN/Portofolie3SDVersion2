@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 class Model{
     MyDB db=new MyDB();
+    //Controller controller = new Controller();
     Model(){
         //db.cmd("drop table if exists lst1;");
         db.cmd("create table if not exists lst1 "+
@@ -24,10 +25,65 @@ class Model{
     }
 
     //Search for vessels with available capacity query
+   /* ArrayList<String> readSearchVesselsWithAvailableCapacity(String comboToPort, String comboFromPort){
+        return db.query("select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers)as diff "
+                +"from transport t"
+                +" inner join flow f on f.fid = t.tid "
+                + "   inner join habour h on h.hid = t.fromhabour"
+                +"    inner join habour h2 on h2.hid = t.tohabour"
+                +"  where h.name LIKE " + comboFromPort + " AND h2.name LIKE " + comboToPort + " and diff = 6000;", "v.vid");
 
-    void readSearchVessel(){
-        return db.query(); //Sæt query ind her
+   // return   db.query("select" +  comboToPort +  "from habour","v.name");
+
+    }*/
+
+    //Search for vessels with available capacity query
+    void CMDreadSearchVesselsWithAvailableCapacity(String comboToPort, String comboFromPort) {
+        db.cmd("select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers )as diff "
+                + "from transport t"
+                + " inner join flow f on f.fid = t.tid "
+                + "   inner join habour h on h.hid = t.fromhabour"
+                + "    inner join habour h2 on h2.hid = t.tohabour"
+                + "  where h.name LIKE " + comboFromPort + " AND h2.name LIKE " + comboToPort +";");
     }
+
+
+    ArrayList<String> readSearchVessel1(String comboFromPort, String comboToPort, int antalContainers){
+        return db.query(
+                "select t.tid as TransportID, v.vid, v.name, v.capacity, f.fid (c.capacity-f.containers) as diff " +
+                        "from transport t" +
+                        "inner join flow f on f.fid = t.tid " +
+                        "inner join vessel v on t.vessel = v.vid" +
+                        "inner join habour fromHarbour on h.hid = t.fromhabour " +
+                        "inner join habour toHarbour on toHarbour.hid = t.tohabour " +
+                        "where fromHarbour.name LIKE" + comboFromPort + "AND toHarbour.name LIKE " + comboToPort + ";"
+                ,"transportID"); //Sæt query ind her
+    }
+
+    //Lav metode til nøjagtig samme erklæring som search -> Returnere tekstString istedet for void
+
+
+
+        ArrayList<String> readSearchVessel(String comboFromPort, String comboToPort){
+        return db.query(
+                "select v.vid, v.name, v.capacity, f.fid (c.capacity-f.containers) as diff " +
+                "from transport t" +
+                "inner join flow f on f.fid = t.tid " +
+                "inner join vessel v on t.vessel = v.vid" +
+                "inner join habour fromHarbour on h.hid = t.fromhabour " +
+                "inner join habour toHarbour on toHarbour.hid = t.tohabour " +
+                "where fromHarbour.name LIKE" + comboFromPort + "AND toHarbour.name LIKE " + comboToPort + ";"
+                ,""); //Sæt query ind her
+    }
+
+    /*select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) as diff
+    from transport t
+     da det er den finder fid med tid. Disse er basically ens
+    inner join vessel v on t.vessel = v.vid
+  "   inner join habour h on h.hid = t.fromhabour
+    inner join habour h2 on h2.hid = t.tohabour"
+
+    where h.name LIKE 'Jawaharlal Nehru' AND h2.name LIKE 'Mombasa' and diff = 6000;*/
 
 
 
