@@ -13,7 +13,7 @@ class Model{
 
     //Søger efter vessel med ledig kapacitet
     //SQL Query henter vesselName som kører fra og til valgte port med angivet containers hvis eksisterende container + indtastet container er lavere end kapacitet
-    ArrayList<String> readSearchVessel(String comboFromPort, String comboToPort, String antalContainers){
+    ArrayList<String> readSearchVessel(String comboFromHabour, String comboToHabour, String antalContainers){
         return db.query(
                 "select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport, v.name as vesselName, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
                 + " from transport t "
@@ -21,7 +21,7 @@ class Model{
                 + " inner join habour fromHabour on t.fromhabour = fromHabour.hid "
                 + " inner join habour toHabour on t.tohabour = toHabour.hid "
                 + " left outer join flow f on t.tid = f.transport "
-                + " where fromport = '" + comboFromPort +"' and toport = '" + comboToPort + "' "
+                + " where fromport = '" + comboFromHabour +"' and toport = '" + comboToHabour + "' "
                 + "group by t.tid "
                 + " having antalContainer + "+antalContainers+" <= v.capacity ", "TransportID");
     }

@@ -12,10 +12,10 @@ class Controller{
     }
 
 
-    void search(String comboFromPort, String comboToPort, String antalContainer){
+    void search(String comboFromHabour, String comboToHabour, String antalContainer){
 
         //Videresender værdierne fra parameteren til model.readSearchVessel, og ligges i en ArrayList<String> res
-        ArrayList<String> res = model.readSearchVessel(comboFromPort, comboToPort, antalContainer);
+        ArrayList<String> res = model.readSearchVessel(comboFromHabour, comboToHabour, antalContainer);
         System.out.println("Res: " + res); //Printer ud i konsol, test til os selv
 
         if(res.size() == 0 ) { //Hvis res.size er lig med 0, så udskrives "intet ledigt" til brugeren
