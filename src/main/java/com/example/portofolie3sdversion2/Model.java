@@ -75,8 +75,6 @@ class Model{
 
         );
 
-
-
        /*return db.query(
                 "SELECT t.tid AS TransportID, v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) AS diff " +
                         "FROM transport t " +
@@ -91,6 +89,19 @@ class Model{
 
 
     }
+
+    ArrayList<String> searchTransport(String transportID){
+        return db.query(
+                "select v.name as Vesselname, h.name as fromHabour, h2.name as toHabour"
+                + " from transport t"
+                + " inner join vessel v on v.vid = t.vessel"
+                        + " inner join habour h on h.hid = t.fromhabour "
+                        + " inner join habour h2 on h2.hid = t.tohabour "
+                + " WHERE t.tid = " + transportID +";", "Vesselname" );
+
+
+    }
+
 
 
 

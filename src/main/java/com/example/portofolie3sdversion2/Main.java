@@ -15,10 +15,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Main extends Application {
+    private TextArea area=new TextArea();
     private Model model=new Model();
     private Controller controller =new Controller(model,this);
     private TextField field=new TextField();
-    private TextArea area=new TextArea();
+
     void setArea(String s){area.setText(s);}
     void clearField(){field.setText("");}
 
@@ -26,7 +27,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         ArrayList<String> liste = new ArrayList<>(model.readListOfHabourNames());
-
 
         //Fra havn combobox
         Label lab1 = new Label("Fra Havn");
@@ -50,7 +50,9 @@ public class Main extends Application {
 
 
         Button srch = new Button("Search");
-        TextArea res = new TextArea();
+        //TextArea res = new TextArea();
+
+
         //TextArea res1 = new TextArea();
 
         //eventlistener -> sæt værdierne
@@ -70,6 +72,8 @@ public class Main extends Application {
 
         //e er en nameless funktion, som Java har (Lambda notation)
         srch.setOnAction(e -> controller.search(comboFromPort.getValue(), comboToPort.getValue(), antalContainers.getText()));
+
+        //srch.setOnAction(e -> model.readSearchVessel(););
 
      //  srch.setOnAction(e -> res.setText(comboFromPort.getValue() +  comboToPort.getValue()+  antalContainers.getText()));
 
@@ -114,7 +118,7 @@ public class Main extends Application {
 
         root.setTop(pane1);
         root.setCenter(srch);
-        root.setBottom(res);
+        root.setBottom(area);
 
         //VBox root = new VBox(lab1,comboFromPort,lab2,comboToPort,lab3,fld,srch,res);
 
