@@ -99,9 +99,20 @@ class Model{
                         + " inner join habour h2 on h2.hid = t.tohabour "
                 + " WHERE t.tid = " + transportID +";", "Vesselname" );
 
-
+        return db.query(  "select v.name as vessel, fromHabour.name as fromport, toHabour.name as toport"
+                + " from transport t"
+                + " inner join vessel v on v.vid = t.vessel"
+                + " inner join habour h on h.hid = t.fromhabour "
+                + " inner join habour h2 on h2.hid = t.tohabour "
+                + " WHERE t.tid = " + transportID +";", "Vesselname" );)
     }
 
+    select v.name as vessel, fromHabour.name as fromport, toHabour.name as toport
+    from transport t
+    inner join vessel v on v.vid = t.vessel
+    inner join habour fromHabour on fromHabour.hid = t.fromhabour
+    inner join habour toHabour on toHabour.hid = t.tohabour
+    WHERE t.tid =  1 ;
 
 
 
