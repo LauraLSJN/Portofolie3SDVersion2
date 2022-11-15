@@ -34,7 +34,7 @@ class Controller{
         ArrayList<String> res = model.readSearchVessel(comboFromPort, comboToPort, antalContainer);
         System.out.println("TEST" + res);
         view.setArea("res" + res);
-        ArrayList<String> transport = model.searchTransport(res.get(0)); //0 da det henter første element i listen
+        //ArrayList<String> transport = model.searchTransport(res.get(0)); //0 da det henter første element i listen
 
 
 
@@ -42,10 +42,10 @@ class Controller{
             view.setArea("Intet ledigt");
         } else {
             System.out.println(res);
-            view.setArea("test" + transport);
-           // ArrayList<String> transportID = model.searchTransport(res);
-            //String areaTekst = transport.get(0);
-            //view.setArea(areaTekst);
+            //view.setArea("test" + transport);
+           ArrayList<String> transportID = model.searchTransport(res.get(0));
+            String areaTekst = transportID.get(0);
+            view.setArea(areaTekst);
         }
 
 
