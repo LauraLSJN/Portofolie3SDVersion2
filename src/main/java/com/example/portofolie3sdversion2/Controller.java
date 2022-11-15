@@ -1,8 +1,5 @@
 package com.example.portofolie3sdversion2;
 
-
-//tjeks and bounds for hvad man sender videre
-
 import java.util.ArrayList;
 
 class Controller{
@@ -11,44 +8,27 @@ class Controller{
     Controller(Model model, Main view){
         this.model=model;
         this.view=view;
-      //  view.setArea("Halløj");
     }
-    /*void initArea(){
-        String toarea="";
-        for(String t:model.get())toarea+=t+"\n";
-        view.setArea(toarea);
-    }*/
-    /*void enterText(String s){
-        model.add(s);
-        view.clearField();
-        String toarea="";
-        for(String t:model.get())toarea+=t+"\n";
-        view.setArea(toarea);
-    }*/
 
 
     void search(String comboFromPort, String comboToPort, String antalContainer){
 
-        //view.setArea("det virker fra controller");
-        //ArrayList<String> res = new ArrayList<>(model.readSearchVessel(comboFromPort, comboToPort, antalContainer));
+        //Videresender værdierne fra parameteren til model.readSearchVessel, og ligges i en ArrayList<String> res
         ArrayList<String> res = model.readSearchVessel(comboFromPort, comboToPort, antalContainer);
-        System.out.println("TEST" + res);
-        view.setArea("res" + res);
-        //ArrayList<String> transport = model.searchTransport(res.get(0)); //0 da det henter første element i listen
+        System.out.println("Res: " + res); //Printer ud i konsol, test til os selv
 
-
-
-        if(res.size() == 0 ) {
+        if(res.size() == 0 ) { //Hvis res.size er lig med 0, så udskrives "intet ledigt" til brugeren
             view.setArea("Intet ledigt");
-        } else {
-            System.out.println(res);
-            //view.setArea("test" + transport);
-           ArrayList<String> transportID = model.searchTransport(res.get(0));
-            String areaTekst = transportID.get(0);
+        } else { //Ellers hent liste med ledige Vessels
+            System.out.println(res); //Print konsol, test til os selv
+           ArrayList<String> transportID = model.searchTransport(res.get(0));  //0 da det henter første element i listen som er ledigt - vi printer første navn som er ledigt
+            String areaTekst = transportID.get(0); //her ligger vi elementet ind i en string
             view.setArea(areaTekst);
+
+            //Tilføjer ekstraFlow
             model.addExtraFlow(res.get(0),antalContainer);
-            System.out.println(areaTekst);
-            System.out.println(antalContainer);
+            System.out.println(areaTekst + antalContainer); //Print til konsol, test til os selv
+
         }
 
 

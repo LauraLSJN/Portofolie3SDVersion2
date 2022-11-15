@@ -22,19 +22,19 @@ class MyDB{
         try {
             if (conn != null) conn.close();
         } catch (SQLException e ) {
-            System.out.println("cannot close");
+            System.out.println("Kan ikke åbne");
         }
         conn=null;
     }
     public void cmd(String sql){ //cmd anvendes til insert
         if(conn==null)open();
-        if(conn==null){System.out.println("No connection");return;}
+        if(conn==null){System.out.println("Ingen forbindelse");return;}
         Statement stmt=null;
         try {
             stmt = conn.createStatement();
             stmt.executeUpdate(sql);
         } catch (SQLException e ) {
-            System.out.println("Error in statement "+sql);
+            System.out.println("Fejl i SQL Statement "+sql);
         }
         try {
             if (stmt != null) { stmt.close(); }
@@ -45,7 +45,7 @@ class MyDB{
     public ArrayList<String> query(String query, String fld){ //query anvendes til select
         ArrayList<String> res=new ArrayList<>();
         if(conn==null)open();
-        if(conn==null){System.out.println("No connection");return res;}
+        if(conn==null){System.out.println("Ingen forbindelse");return res;}
         Statement stmt=null;
         try {
             stmt = conn.createStatement();
