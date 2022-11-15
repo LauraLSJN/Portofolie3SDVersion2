@@ -46,7 +46,11 @@ class Controller{
            ArrayList<String> transportID = model.searchTransport(res.get(0));
             String areaTekst = transportID.get(0);
             view.setArea(areaTekst);
+            model.addExtraFlow(res.get(0),antalContainer);
+            System.out.println(areaTekst);
+            System.out.println(antalContainer);
         }
+
 
 
 
