@@ -4,24 +4,9 @@ import java.util.ArrayList;
 
 class Model{
     MyDB db=new MyDB();
-    private MyDB db1;
-
-    //Controller controller = new Controller();
-    Model(){
-        //db.cmd("drop table if exists lst1;");
-        db.cmd("create table if not exists lst1 "+
-                "(fld1 integer primary key autoincrement, fld2 text);");
-    }
-    void add(String s){ // remember to sanitize your data!
-        db.cmd("insert into lst1 (fld2) values ('"+s+"');");
-    }
-
-    ArrayList<String> get(){
-        return db.query("select fld2 from lst1 order by fld1;","fld2");
-    }
 
 
-    //Extract a list of ports for combo boxes query
+    //Henter liste af habour til combobox query
    ArrayList<String>  readListOfHabourNames() {
        return db.query("select name from habour;", "name");
     }
@@ -29,9 +14,6 @@ class Model{
     //Søger efter vessel med ledig kapacitet
     //SQL Query henter vesselName som kører fra og til valgte port med angivet containers hvis eksisterende container + indtastet container er lavere end kapacitet
     ArrayList<String> readSearchVessel(String comboFromPort, String comboToPort, String antalContainers){
-        System.out.println(comboFromPort + " " + comboToPort + " " + antalContainers);
-
-        //ændret v.name as vessel -> v.name as vesselName
         return db.query(
                 "select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport, v.name as vesselName, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
                 + " from transport t "
@@ -58,8 +40,5 @@ class Model{
     void addExtraFlow (String transportID, String antalContainers){
         db.cmd("INSERT INTO flow(transport,containers) VALUES (" + transportID + "," + antalContainers+");");
     }
-
-
-
 
 }
