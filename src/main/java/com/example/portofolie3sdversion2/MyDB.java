@@ -14,7 +14,7 @@ class MyDB{
             conn = DriverManager.getConnection(url);
             System.out.println("Åbner");
         } catch (SQLException e) {
-            System.out.println("cannot open");
+            System.out.println("Kan ikke åbne");
             if (conn != null) close();
         };
     }
@@ -39,7 +39,7 @@ class MyDB{
         try {
             if (stmt != null) { stmt.close(); }
         } catch (SQLException e ) {
-            System.out.println("Error in statement "+sql);
+            System.out.println("EFejl i SQL Statement "+sql);
         }
     }
     public ArrayList<String> query(String query, String fld){ //query anvendes til select
@@ -55,12 +55,12 @@ class MyDB{
                 res.add(name);
             }
         } catch (SQLException e ) {
-            System.out.println("Error in statement "+query+" "+fld);
+            System.out.println("Fejl i SQL Statement "+query+" "+fld);
         }
         try {
             if (stmt != null) { stmt.close(); }
         } catch (SQLException e ) {
-            System.out.println("Error in statement "+query+" "+fld);
+            System.out.println("Fejl i SQL Statement "+query+" "+fld);
         }
         return res;
     }

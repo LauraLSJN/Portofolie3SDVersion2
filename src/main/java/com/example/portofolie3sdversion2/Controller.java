@@ -5,6 +5,7 @@ import java.util.ArrayList;
 class Controller{
     Model model;
     Main view;
+
     Controller(Model model, Main view){
         this.model=model;
         this.view=view;
