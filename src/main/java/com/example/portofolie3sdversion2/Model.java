@@ -26,39 +26,8 @@ class Model{
        return db.query("select name from habour;", "name");
     }
 
-    //Search for vessels with available capacity query
-   /* ArrayList<String> readSearchVesselsWithAvailableCapacity(String comboToPort, String comboFromPort){
-        return db.query("select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers)as diff "
-                +"from transport t"
-                +" inner join flow f on f.fid = t.tid "
-                + "   inner join habour h on h.hid = t.fromhabour"
-                +"    inner join habour h2 on h2.hid = t.tohabour"
-                +"  where h.name LIKE " + comboFromPort + " AND h2.name LIKE " + comboToPort + " and diff = 6000;", "v.vid");
-
-   // return   db.query("select" +  comboToPort +  "from habour","v.name");
-
-    }*/
-
-    //Search for vessels with available capacity query
-    /*void CMDreadSearchVesselsWithAvailableCapacity(String comboToPort, String comboFromPort) {
-        db.cmd("select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers )as diff "
-                + "from transport t"
-                + " inner join flow f on f.fid = t.tid "
-                + "   inner join habour h on h.hid = t.fromhabour"
-                + "    inner join habour h2 on h2.hid = t.tohabour"
-                + "  where h.name LIKE " + comboFromPort + " AND h2.name LIKE " + comboToPort +";");
-    }*/
-
-
-  /*  ArrayList<String> readSearchVessel1(String comboFromPort, String comboToPort, String antalContainers){
-        System.out.println(comboFromPort + " " + comboToPort + " " + antalContainers);
-        return db.query("SELECT t.tid as TransportID,"
-                + " FROM transport t "
-                + "INNER JOIN"
-
-        );
-    }*/
-
+    //Søger efter vessel med ledig kapacitet
+    //SQL Query henter vesselName som kører fra og til valgte port med angivet containers hvis eksisterende container + indtastet container er lavere end kapacitet
     ArrayList<String> readSearchVessel(String comboFromPort, String comboToPort, String antalContainers){
         System.out.println(comboFromPort + " " + comboToPort + " " + antalContainers);
 
@@ -73,31 +42,10 @@ class Model{
                 + " where fromport = '" + comboFromPort +"' and toport = '" + comboToPort + "' "
                 + "group by t.tid "
                 + " having antalContainer + "+antalContainers+" <= v.capacity ", "TransportID");
-
-       /*return db.query(
-                "SELECT t.tid AS TransportID, v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) AS diff " +
-                        "FROM transport t " +
-                        "INNER JOIN flow f ON f.fid = t.tid " +
-                        "INNER JOIN vessel v ON t.vessel = v.vid " +
-                        "INNER JOIN habour fromHarbour ON h.hid = t.fromhabour " +
-                        "INNER JOINN habour toHarbour ON toHarbour.hid = t.tohabour " +
-                        "WHERE fromHarbour.name LIKE '" + comboFromPort + "' AND toHarbour.name LIKE '" + comboToPort + "' AND '" + antalContainers + " < diff;"
-                ,"TransportID"
-       );*/
-
-
-
     }
 
+    //SQL query som henter Vessel name ud fra TransportID (fra readSearchVessel metode)
     ArrayList<String> searchTransport(String transportID){
-       /* return db.query(
-                "select v.name as Vesselname, h.name as fromHabour, h2.name as toHabour"
-                + " from transport t"
-                + " inner join vessel v on v.vid = t.vessel"
-                        + " inner join habour h on h.hid = t.fromhabour "
-                        + " inner join habour h2 on h2.hid = t.tohabour "
-                + " WHERE t.tid = " + transportID +";", "Vesselname" );*/
-
         return db.query(  "select v.name as vesselName, fromHabour.name as fromport, toHabour.name as toport"
                 + " from transport t"
                 + " inner join vessel v on v.vid = t.vessel"
@@ -105,49 +53,6 @@ class Model{
                 + " inner join habour toHabour on toHabour.hid = t.tohabour "
                 + " WHERE t.tid = " + transportID +";", "vesselName" );
     }
-
-   /* select v.name as vessel, fromHabour.name as fromport, toHabour.name as toport
-    from transport t
-    inner join vessel v on v.vid = t.vessel
-    inner join habour fromHabour on fromHabour.hid = t.fromhabour
-    inner join habour toHabour on toHabour.hid = t.tohabour
-    WHERE t.tid =  1 ;
-*/
-
-
-    //Lav metode til nøjagtig samme erklæring som search -> Returnere tekstString istedet for void
-
-
-        //Search for vessels with available capacity query
-        /*ArrayList<String> readSearchVessel1(String comboFromPort, String comboToPort, String antalContainers){
-        return db.query(
-                "select v.vid, v.name, v.capacity, f.fid (c.capacity-f.containers) as diff " +
-                "from transport t" +
-                "inner join flow f on f.fid = t.tid " +
-                "inner join vessel v on t.vessel = v.vid" +
-                "inner join habour fromHarbour on h.hid = t.fromhabour " +
-                "inner join habour toHarbour on toHarbour.hid = t.tohabour " +
-                "where fromHarbour.name LIKE" + comboFromPort + "AND toHarbour.name LIKE " + comboToPort + "and" + antalContainers + "> diff;"
-                ,""); //Sæt query ind her
-    }*/
-
-    /*select v.vid, v.name, v.capacity, f.fid, (v.capacity-f.containers) as diff
-    from transport t
-     da det er den finder fid med tid. Disse er basically ens
-    inner join vessel v on t.vessel = v.vid
-  "   inner join habour h on h.hid = t.fromhabour
-    inner join habour h2 on h2.hid = t.tohabour"
-
-    where h.name LIKE 'Jawaharlal Nehru' AND h2.name LIKE 'Mombasa' and diff = 6000;*/
-
-
-    //lav cmd insert into flow (opdateres cmd)
-
-    // 1. først hvilket transport er der plads til
-    // så får vi transid -> hvad er navnet på skibet
-    // lav select på det
-    // lav insert into flow - cmd returnere ikke noget
-    //transport nr og antal container
 
     //Tilføjer ny kolonne til flowtabel med transportid og antalcontainers til flow der generere et nytflow id automatisk
     void addExtraFlow (String transportID, String antalContainers){
