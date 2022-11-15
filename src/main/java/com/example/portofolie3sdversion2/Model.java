@@ -99,7 +99,7 @@ class Model{
                         + " inner join habour h2 on h2.hid = t.tohabour "
                 + " WHERE t.tid = " + transportID +";", "Vesselname" );
 
-        return db.query(  "select v.name as vessel, fromHabour.name as fromport, toHabour.name as toport"
+        return db.query(  "select v.name as vesselName, fromHabour.name as fromport, toHabour.name as toport"
                 + " from transport t"
                 + " inner join vessel v on v.vid = t.vessel"
                 + " inner join habour h on h.hid = t.fromhabour "
@@ -140,6 +140,20 @@ class Model{
     inner join habour h2 on h2.hid = t.tohabour"
 
     where h.name LIKE 'Jawaharlal Nehru' AND h2.name LIKE 'Mombasa' and diff = 6000;*/
+
+
+    //lav cmd insert into flow (opdateres cmd)
+
+    // 1. først hvilket transport er der plads til
+    // så får vi transid -> hvad er navnet på skibet
+    // lav select på det
+    // lav insert into flow - cmd returnere ikke noget
+    //transport nr og antal container
+
+    //Tilføjer ny kolonne til flowtabel med transportid og antalcontainers til flow der generere et nytflow id automatisk
+    void addExtraFlow (String transportID, String antalContainers){
+        db.cmd("INSERT INTO flow(transport,containers) VALUES (" + transportID + "," + antalContainers+");");
+    }
 
 
 
