@@ -28,7 +28,7 @@ class Controller{
 
             //Tilføjer ekstraFlow
             model.addExtraFlow(res.get(0),antalContainer);
-            System.out.println(areaTekst + antalContainer); //Print til konsol, test til os selv
+            System.out.println(areaTekst + ": " + antalContainer); //Print til konsol, test til os selv
 
         }
     }

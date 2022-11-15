@@ -12,10 +12,11 @@ public class Main extends Application {
     private TextArea area=new TextArea();
     private Model model=new Model();
     private Controller controller =new Controller(model,this);
-    private TextField field=new TextField();
 
-    void setArea(String s){area.setText(s);}
-    void clearField(){field.setText("");}
+
+    void setArea(String s){
+        area.setText(s);
+    }
 
 
     @Override
@@ -58,6 +59,7 @@ public class Main extends Application {
         lab1.setPrefSize(150,30);
         lab2.setPrefSize(150,30);
         lab3.setPrefSize(150,30);
+        //styler srch knap
         srch.setStyle("-fx-font:22 arial; -fx-base: rgb(101,225,59);" +
                 "-fx-text-fill: rgb(255,255,255);");
 
@@ -70,21 +72,16 @@ public class Main extends Application {
         pane1.add(lab3,3,1);
         pane1.add(antalContainers,3,2);
 
-
-
+        //Placering af plane1, srch og area ved root.
         root.setTop(pane1);
         root.setCenter(srch);
         root.setBottom(area);
 
 
-        //Group root = new Group(); // the root is Group or Pane
-        Scene scene = new Scene(root, 500, 500, Color.PINK);
-        stage.setTitle("JavaFX Demo");
+        Scene scene = new Scene(root, 500, 500);
+        stage.setTitle("Portofolio 3 SD");
         stage.setScene(scene);
         stage.show();
-
-
-
 
     }
 

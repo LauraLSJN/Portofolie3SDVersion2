@@ -8,7 +8,7 @@ class Model{
 
     //Henter liste af habour til combobox query
    ArrayList<String>  readListOfHabourNames() {
-       return db.query("select name from habour;", "name");
+       return db.query("SELECT name FROM habour;", "name");
     }
 
     //Søger efter vessel med ledig kapacitet
