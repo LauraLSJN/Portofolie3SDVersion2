@@ -30,27 +30,6 @@ class Controller{
             System.out.println(areaTekst + antalContainer); //Print til konsol, test til os selv
 
         }
-
-
-
-
-
-
-        //System.out.println(model.readSearchVessel(comboFromPort, comboToPort, antalContainer));
-
-
-
-
-
-
-        //hvis arraylisten == model is -> system print ln
-
-        //Kalder metode i model, som returnere data
-        //String res = model.Search(fromP, toP, antal) -> Sender resultat tilbage fra view
-        //Kalder model search i controller -> Smider tre parametre ned i
-
-        //Model search, må skal gerne returnere arrayList/String
     }
-
 
 }
