@@ -17,7 +17,7 @@ class Model{
     //SQL Query henter vesselName som kører fra og til valgte port med angivet containers hvis eksisterende container + indtastet container er lavere end kapacitet
     ArrayList<String> readSearchVessel(String comboFromHabour, String comboToHabour, String antalContainers){
         return db.query(
-                "select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport, v.name as vesselName, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
+                "select t.tid as TransportID, fromHabour.name as fromport, toHabour.name as toport,v.name as vesselName, Sum(f.containers) as antalContainer, v.capacity as containerCapacity "
                 + " from transport t "
                 + " inner join vessel v on t.vessel = v.vid "
                 + " inner join habour fromHabour on t.fromhabour = fromHabour.hid "
