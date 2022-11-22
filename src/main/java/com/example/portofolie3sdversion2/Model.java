@@ -1,3 +1,5 @@
+//Dele af denne kode er implementeret fra Mads Rosendahls kode. Denne kode er givet i forelæsning JavaFX Programming
+
 package com.example.portofolie3sdversion2;
 
 import java.util.ArrayList;
