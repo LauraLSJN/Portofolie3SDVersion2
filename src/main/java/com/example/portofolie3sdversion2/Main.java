@@ -1,3 +1,5 @@
+//Anna Borg, Christine Van Wulffeld og Laura Sofie Juel Nielsen
+
 package com.example.portofolie3sdversion2;
 import javafx.application.Application;
 import javafx.scene.Scene;
