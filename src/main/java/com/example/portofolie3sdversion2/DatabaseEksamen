@@ -47,6 +47,7 @@ insert into transport values (9,9,3,1);
 insert into transport values (10,10,3,6);
 insert into transport values (11,11,4,7);
 insert into transport values (12,12,4,6);
+--insert into transport values (13,12,4,6);
 
 
 --Flow tabel
