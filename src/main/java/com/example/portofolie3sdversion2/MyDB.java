@@ -51,8 +51,8 @@ class MyDB{
         try {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                String name = rs.getString(fld);
+            while (rs.next()) { //så længe der er flere querys - while loppet kører så den kan rykke længere ned
+                String name = rs.getString(fld); //det man add'er i fld er en god ide som primary key
                 res.add(name);
             }
         } catch (SQLException e ) {

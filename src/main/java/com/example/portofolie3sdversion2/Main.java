@@ -17,7 +17,7 @@ public class Main extends Application { //Applications er en abstrakt java klass
 
     void setArea(String s){
         area.setText(s);
-    }
+    } //Sætter teksen i TextArea
 
 
     @Override //overrider fra Application
@@ -26,12 +26,12 @@ public class Main extends Application { //Applications er en abstrakt java klass
 
         //Fra havn combobox
         Label lab1 = new Label("Fra Havn");
-        ComboBox<String> comboFromHabour = new ComboBox<>();
+        ComboBox<String> comboFromHabour = new ComboBox<>(); //ComboBox metode i application
         for(String fromHarbour: liste){
-            comboFromHabour.getItems().add(fromHarbour);
+            comboFromHabour.getItems().add(fromHarbour); //det er fra havne som vi tilføjer
         }
 
-        //Til havn combobox
+        //Til havn combobox - samme som ovenstående bare til havne istedet
         Label lab2 = new Label("Til Havn");
         ComboBox<String> comboToHabour = new ComboBox<>();
         for(String toHarbour: liste){
@@ -39,7 +39,7 @@ public class Main extends Application { //Applications er en abstrakt java klass
         }
         //comboToHabour.getValue(); //Kan slettes
 
-        //Antal containers tekstfelt
+        //Antal containers tekstfelt hvor man har mulighed for at skrive noget
         Label lab3 = new Label("Antal af containers");
         TextField antalContainers = new TextField();
 
@@ -49,12 +49,14 @@ public class Main extends Application { //Applications er en abstrakt java klass
 
         //Tager event state fra button og indsætter værdien af textArea -> eventlistener -> sætter værdierne
         //e er en nameless funktion, som Java har (Lambda notation)
+        //Når der trykkes skal der søges - ser om der er en handling eller ej - hvis der er skal
+        //Den gå ind i controller klassen og tage de 3x parametre.
         srch.setOnAction(e -> controller.search(comboFromHabour.getValue(),
                 comboToHabour.getValue(),
                 antalContainers.getText()));
 
 
-
+        //Layout
         GridPane pane1 = new GridPane();
         BorderPane root = new BorderPane();
         lab1.setPrefSize(150,30);
@@ -79,7 +81,7 @@ public class Main extends Application { //Applications er en abstrakt java klass
         root.setBottom(area);
 
 
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 500, 500); //sætter størrelsen på det user interface som kommer frem
         stage.setTitle("Portofolio 3 SD");
         stage.setScene(scene);
         stage.show();
