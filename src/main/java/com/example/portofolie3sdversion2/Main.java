@@ -9,11 +9,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
-
-public class Main extends Application {
-    private TextArea area=new TextArea();
-    private Model model=new Model();
-    private Controller controller =new Controller(model,this);
+public class Main extends Application { //Applications er en abstrakt java klasse og muliggør grafisk user interface (GUI)
+    private TextArea area=new TextArea(); //kommer fra aplication
+    private Model model=new Model(); //Egen klasse
+    private Controller controller =new Controller(model,this); //Egen klasse, som tager argumenter: model,
 
 
     void setArea(String s){
@@ -21,9 +20,9 @@ public class Main extends Application {
     }
 
 
-    @Override
-    public void start(Stage stage) {
-        ArrayList<String> liste = new ArrayList<>(model.readListOfHabourNames());
+    @Override //overrider fra Application
+    public void start(Stage stage) { //obs. bliver den brugt?
+        ArrayList<String> liste = new ArrayList<>(model.readListOfHabourNames()); //Liste er en liste af havne navne fra model
 
         //Fra havn combobox
         Label lab1 = new Label("Fra Havn");
@@ -38,7 +37,7 @@ public class Main extends Application {
         for(String toHarbour: liste){
             comboToHabour.getItems().add(toHarbour);
         }
-        comboToHabour.getValue();
+        //comboToHabour.getValue(); //Kan slettes
 
         //Antal containers tekstfelt
         Label lab3 = new Label("Antal af containers");

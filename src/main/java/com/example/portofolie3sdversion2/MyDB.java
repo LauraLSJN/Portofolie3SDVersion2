@@ -1,7 +1,5 @@
 //Dele af denne kode er implementeret fra Mads Rosendahls kode. Denne kode er givet i forelæsning JavaFX Programming
-
 package com.example.portofolie3sdversion2;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -30,11 +28,12 @@ class MyDB{
     }
     public void cmd(String sql){ //cmd anvendes til insert
         if(conn==null)open();
-        if(conn==null){System.out.println("Ingen forbindelse");return;}
+        if(conn==null){
+            System.out.println("Ingen forbindelse");return;}
         Statement stmt=null;
         try {
             stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(sql); //Opdatere
         } catch (SQLException e ) {
             System.out.println("Fejl i SQL Statement "+sql);
         }
