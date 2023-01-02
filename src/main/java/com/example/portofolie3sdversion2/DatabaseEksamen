@@ -47,13 +47,13 @@ insert into transport values (9,9,3,1);
 insert into transport values (10,10,3,6);
 insert into transport values (11,11,4,7);
 insert into transport values (12,12,4,6);
---insert into transport values (13,12,4,6);
+--insert into transport values (13,12 ,4,6);
 
 
 --Flow tabel
 create table flow(fid Integer primary key autoincrement, --Autoincremnet, da den automatisk skal genere et fid
                   transport Integer references transport(tid),
-                  containers integer
+                  containers integer --Kunne have sagt not null
 );
 insert into flow(transport,containers) values (1,2000);
 insert into flow(transport,containers) values (2,2000);
