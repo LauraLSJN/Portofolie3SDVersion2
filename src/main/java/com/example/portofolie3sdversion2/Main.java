@@ -57,8 +57,8 @@ public class Main extends Application { //Applications er en abstrakt java klass
 
 
         //Layout
-        GridPane pane1 = new GridPane();
-        BorderPane root = new BorderPane();
+        GridPane pane1 = new GridPane(); //Grids
+        BorderPane root = new BorderPane(); //Borders på user interface
         lab1.setPrefSize(150,30);
         lab2.setPrefSize(150,30);
         lab3.setPrefSize(150,30);
@@ -78,7 +78,7 @@ public class Main extends Application { //Applications er en abstrakt java klass
         //Placering af plane1, srch og area ved root.
         root.setTop(pane1);
         root.setCenter(srch);
-        root.setBottom(area);
+        root.setBottom(area); //setBottom er bunden
 
 
         Scene scene = new Scene(root, 500, 500); //sætter størrelsen på det user interface som kommer frem

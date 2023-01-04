@@ -2,6 +2,8 @@
 package com.example.portofolie3sdversion2;
 import java.util.ArrayList;
 
+//Business Logik
+
 class Controller{
     Model model;
     Main view;
@@ -14,7 +16,6 @@ class Controller{
 
     //Deafult public
     void search(String comboFromHabour, String comboToHabour, String antalContainer){
-
         //Videresender værdierne fra parameteren til model.readSearchVessel, og ligges i en ArrayList<String> res
         ArrayList<String> res = model.readSearchVessel(comboFromHabour, comboToHabour, antalContainer); //readSearchVessel --> metode fra Model klassen
         System.out.println("Res: " + res); //Printer ud i konsol, test til os selv
@@ -25,7 +26,8 @@ class Controller{
             System.out.println(res); //Print konsol, test til os selv
            ArrayList<String> transportID = model.searchTransport(res.get(0));  //0 da det henter første element i listen som er ledigt - vi printer første navn som er ledigt
             //Vi kan godt have flere transporter fra og til den havn på listen, men vi skal bare have den første, derfor get 0
-            String areaTekst = transportID.get(0); //her ligger vi elementet ind i en string, som bruges til at printe ud i view
+            //At vi kalder der transportID er ikke retvisende, det returnere blot det fld, vi har efterspurgt i query
+            String areaTekst = transportID.get(0); //her ligger vi elementet ind i en string, som bruges til at printe ud i view - Hent indeks 0
             view.setArea(areaTekst);
 
             //Tilføjer ekstraFlow
